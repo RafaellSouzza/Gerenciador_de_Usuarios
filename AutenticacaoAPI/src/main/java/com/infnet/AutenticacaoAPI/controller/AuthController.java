@@ -15,7 +15,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest authRequest) {
-        // Autenticação simples fictícia (pode ser substituída por uma verificação real)
         if ("usuario".equals(authRequest.getUsername()) && "senha".equals(authRequest.getPassword())) {
             String token = jwtTokenProvider.criarToken(authRequest.getUsername());
             return ResponseEntity.ok(new AuthResponse(token));

@@ -1,7 +1,6 @@
 package com.infnet.AutenticacaoAPI.security;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
@@ -13,14 +12,14 @@ import java.util.Date;
 public class JwtTokenProvider {
 
     private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Gera uma chave secreta
-    private final long validityInMilliseconds = 3600000; // 1 hora
+    private final long validityInMilliseconds = 3600000;
 
     public String criarToken(String username) {
         Date agora = new Date();
         Date validade = new Date(agora.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setSubject(username)  // Define o subject diretamente
+                .setSubject(username)
                 .setIssuedAt(agora)
                 .setExpiration(validade)
                 .signWith(secretKey)
