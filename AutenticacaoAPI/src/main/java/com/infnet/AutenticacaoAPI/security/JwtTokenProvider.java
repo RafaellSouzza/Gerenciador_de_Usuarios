@@ -1,34 +1,35 @@
 package com.infnet.AutenticacaoAPI.security;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Service;
 
+import java.security.Key;
 import java.util.Date;
 
 @Service
 public class JwtTokenProvider {
 
-    private final String secretKey = "mySecretKey"; // Você pode configurar isso em application.properties
+    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Gera uma chave secreta
     private final long validityInMilliseconds = 3600000; // 1 hora
 
     public String criarToken(String username) {
-        Claims claims = Jwts.claims().setSubject(username);
         Date agora = new Date();
         Date validade = new Date(agora.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .setClaims(claims)
+                .setSubject(username)  // Define o subject diretamente
                 .setIssuedAt(agora)
                 .setExpiration(validade)
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(secretKey)
                 .compact();
     }
 
     public boolean validarToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -36,6 +37,6 @@ public class JwtTokenProvider {
     }
 
     public String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody().getSubject();
     }
 }
