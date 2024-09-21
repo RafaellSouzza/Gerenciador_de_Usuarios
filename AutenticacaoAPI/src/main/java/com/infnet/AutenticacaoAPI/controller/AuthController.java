@@ -1,6 +1,7 @@
 package com.infnet.AutenticacaoAPI.controller;
 
 import com.infnet.AutenticacaoAPI.model.AuthRequest;
+import com.infnet.AutenticacaoAPI.model.AuthResponse;
 import com.infnet.AutenticacaoAPI.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
