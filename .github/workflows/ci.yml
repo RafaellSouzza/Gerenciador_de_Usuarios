@@ -1,0 +1,40 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        service: [AutenticacaoAPI, RelatoriosAPI, UsuariosAPI]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin' # Adoptium distribution
+        java-version: '17'
+
+    - name: Build and Test
+      run: |
+        cd ${{ matrix.service }}
+        ./mvnw clean install
+
+    - name: Archive build artifacts
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.service }}-build
+        path: ${{ matrix.service }}/target/
