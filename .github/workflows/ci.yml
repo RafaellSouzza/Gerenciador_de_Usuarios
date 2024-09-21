@@ -27,6 +27,9 @@ jobs:
         distribution: 'temurin' # Adoptium distribution
         java-version: '17'
 
+    - name: Set executable permissions for Maven Wrapper
+      run: chmod +x ./${{ matrix.service }}/mvnw
+
     - name: Build and Test
       run: |
         cd ${{ matrix.service }}
