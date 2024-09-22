@@ -1,0 +1,9 @@
+FROM openjdk:17-jdk-alpine
+
+WORKDIR /app
+
+COPY target/AutenticacaoAPI-0.0.1-SNAPSHOT.jar autenticacao-api.jar
+
+EXPOSE 8081
+
+ENTRYPOINT ["java", "-jar", "autenticacao-api.jar"]

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: autenticacao-api-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: autenticacao-api
+  template:
+    metadata:
+      labels:
+        app: autenticacao-api
+    spec:
+      containers:
+      - name: autenticacao-api
+        image: autenticacao-api
+        ports:
+        - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: autenticacao-api-service
+spec:
+  selector:
+    app: autenticacao-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8081
+  type: NodePort

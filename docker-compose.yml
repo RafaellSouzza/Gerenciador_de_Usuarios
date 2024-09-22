@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  usuarios-api:
+    build:
+      context: ./UsuariosAPI
+      dockerfile: Dockerfile
+    image: usuarios-api
+    ports:
+      - "8080:8080"
+  
+  relatorios-api:
+    build:
+      context: ./RelatoriosAPI
+      dockerfile: Dockerfile
+    image: relatorios-api
+    ports:
+      - "8082:8082"
+
+  autenticacao-api:
+    build:
+      context: ./AutenticacaoAPI
+      dockerfile: Dockerfile
+    image: autenticacao-api
+    ports:
+      - "8081:8081"
