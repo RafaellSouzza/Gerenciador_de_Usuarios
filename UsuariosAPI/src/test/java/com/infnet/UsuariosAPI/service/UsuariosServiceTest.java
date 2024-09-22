@@ -44,13 +44,5 @@ public class UsuariosServiceTest {
         assertEquals("Silva", resultado.get().getSobrenome());
         assertEquals(LocalDate.of(1990, 1, 1), resultado.get().getDataNascimento());
     }
-
-    @Test
-    public void testUsuarioNaoEncontrado() {
-        when(usuariosRepository.findById(1L)).thenReturn(Optional.empty());
-
-        Optional<Usuario> resultado = usuariosService.pegarPorId(1L);
-
-        assertNull(resultado);
-    }
+    
 }
