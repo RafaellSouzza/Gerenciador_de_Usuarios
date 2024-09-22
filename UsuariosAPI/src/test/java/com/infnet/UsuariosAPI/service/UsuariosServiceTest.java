@@ -44,5 +44,5 @@ public class UsuariosServiceTest {
         assertEquals("Silva", resultado.get().getSobrenome());
         assertEquals(LocalDate.of(1990, 1, 1), resultado.get().getDataNascimento());
     }
-    
+
 }
