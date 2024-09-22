@@ -1,6 +1,4 @@
-Aqui está o código em **Markdown** com as imagens incluídas no README para os diagramas de classes e o diagrama de sequência do sistema.
 
-```markdown
 # Gerenciador de Usuários - APIs com Docker, Kubernetes e CI/CD
 
 ## Descrição
